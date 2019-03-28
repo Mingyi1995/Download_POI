@@ -49,7 +49,7 @@ if len(info) > 0:
          header = csvreader.fieldnames
          [points.field(field) for field in header]
          for row in csvreader:
-            points.point((float(row['Lon'])),(float(row['Lat'])))
+            points.point((float(row['lng'])),(float(row['lat'])))
             points.record(*tuple([row[f] for f in header]))
     # points.save('%s/%s_%s.shp'%(location_name,location_name,category))
 
