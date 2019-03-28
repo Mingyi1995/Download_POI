@@ -8,12 +8,12 @@ from shapely.geometry import Point
 import shutil
 import os
 
-ak = input('输入百度api key')
-category = input('输入POI类型')
-coord_type = input('输入坐标类型')
-location = input('输入中心点坐标，先纬度后经度用英文逗号分隔不要加空格')
-location_name = input('输入中心点名字，例如复华小区')
-radius = input('输入搜索半径')
+ak = input('输入百度api key: ')
+category = input('输入POI类型: ')
+coord_type = input('输入坐标类型: ')
+location = input('输入中心点坐标，先纬度后经度用英文逗号分隔不要加空格: ')
+location_name = input('输入中心点名字，例如复华小区: ')
+radius = input('输入搜索半径(只写数字，单位为米): ')
 os.mkdir('%s'%location_name)
 j = 0
 info = pd.DataFrame()
@@ -37,7 +37,7 @@ else:pass
 info['lat'] = lat
 info['lng'] = lng
 if len(info) > 0:
-    info.to_csv('%s_%s.csv'%(location_name,category), spe=',',encoding='utf-8', index=False)
+    info.to_csv('%s_%s.csv'%(location_name,category), sep=',',encoding='utf-8', index=False)
     geometry = [Point(xy) for xy in zip(info.lng, info.lat)]
     crs = {'init': 'epsg:4326'}
     info_geo = gpd.GeoDataFrame(info, crs=crs, geometry=geometry)
