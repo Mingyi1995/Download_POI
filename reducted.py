@@ -43,7 +43,7 @@ info['lat'] = lat
 info['lng'] = lng
 if len(info) > 0:
     info.to_csv('%s/%s_%s.csv'%(location_name,location_name,category), sep=',',encoding='utf-8', index=False)
-    points = shp.Writer(shp.POINT)
+    points = shp.Writer('%s/%s_%s.shp'%(location_name,location_name,category), shapeType = shp.POINT)
     with open('%s/%s_%s.csv'%(location_name,location_name,category), 'rb') as csvfile:
          csvreader = csv.DictReader(csvfile)
          header = csvreader.fieldnames
