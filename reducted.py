@@ -44,14 +44,14 @@ info['lng'] = lng
 if len(info) > 0:
     info.to_csv('%s/%s_%s.csv'%(location_name,location_name,category), sep=',',encoding='utf-8', index=False)
     points = shp.Writer('%s/%s_%s.shp'%(location_name,location_name,category), shapeType = shp.POINT)
-    with open('%s/%s_%s.csv'%(location_name,location_name,category), 'rb') as csvfile:
+    with open('%s/%s_%s.csv'%(location_name,location_name,category), 'r') as csvfile:
          csvreader = csv.DictReader(csvfile)
          header = csvreader.fieldnames
          [points.field(field) for field in header]
          for row in csvreader:
             points.point((float(row['Lon'])),(float(row['Lat'])))
             points.record(*tuple([row[f] for f in header]))
-    points.save('%s/%s_%s.shp'%(location_name,location_name,category))
+    # points.save('%s/%s_%s.shp'%(location_name,location_name,category))
 
     # geometry = [Point(xy) for xy in zip(info.lng, info.lat)]
     # crs = {'init': 'epsg:4326'}
