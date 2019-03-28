@@ -47,7 +47,7 @@ if len(info) > 0:
     info_geo = gpd.GeoDataFrame(info, crs=crs, geometry=geometry)
     del info_geo['lat']
     del info_geo['lng']
-    info_geo.to_file('%s_%s.shp'%(location_name,category), driver='ESRI Shapefile')
+    info_geo.to_file('%s/%s_%s.shp'%(location_name,location_name,category), driver='ESRI Shapefile')
     print('下载完成')
 else:
     print('搜索无记录')
