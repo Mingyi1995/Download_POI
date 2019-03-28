@@ -41,7 +41,7 @@ else:pass
 info['lat'] = lat
 info['lng'] = lng
 if len(info) > 0:
-    info.to_csv('%s_%s.csv'%(location_name,category), sep=',',encoding='utf-8', index=False)
+    info.to_csv('%s/%s_%s.csv'%(location_name,location_name,category), sep=',',encoding='utf-8', index=False)
     geometry = [Point(xy) for xy in zip(info.lng, info.lat)]
     crs = {'init': 'epsg:4326'}
     info_geo = gpd.GeoDataFrame(info, crs=crs, geometry=geometry)
