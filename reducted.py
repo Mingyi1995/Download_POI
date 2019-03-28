@@ -10,7 +10,7 @@ import shutil
 ak = input('输入百度api key')
 category = input('输入POI类型')
 coord_type = input('输入坐标类型')
-location = input('输入中心点坐标')
+location = input('输入中心点坐标，先纬度后经度用英文逗号分隔不要加空格')
 location_name = input('输入中心点名字，例如复华小区')
 radius = input('输入搜索半径')
 
