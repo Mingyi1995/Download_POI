@@ -4,8 +4,9 @@ import json
 import requests
 import pandas as pd
 import geopandas as gpd
-from shapely.geometry import Point
-import shutil
+# from shapely.geometry import Point
+import csv
+import shapefile as shp
 import os
 
 ak = input('输入百度api key: ')
@@ -42,12 +43,22 @@ info['lat'] = lat
 info['lng'] = lng
 if len(info) > 0:
     info.to_csv('%s/%s_%s.csv'%(location_name,location_name,category), sep=',',encoding='utf-8', index=False)
-    geometry = [Point(xy) for xy in zip(info.lng, info.lat)]
-    crs = {'init': 'epsg:4326'}
-    info_geo = gpd.GeoDataFrame(info, crs=crs, geometry=geometry)
-    del info_geo['lat']
-    del info_geo['lng']
-    info_geo.to_file('%s/%s_%s.shp'%(location_name,location_name,category), driver='ESRI Shapefile')
+    points = shp.Writer(shp.POINT)
+    with open('%s/%s_%s.csv'%(location_name,location_name,category), 'rb') as csvfile:
+         csvreader = csv.DictReader(csvfile)
+         header = csvreader.fieldnames
+         [points.field(field) for field in header]
+         for row in csvreader:
+            points.point((float(row['Lon'])),(float(row['Lat'])))
+            points.record(*tuple([row[f] for f in header]))
+    points.save('%s/%s_%s.shp'%(location_name,location_name,category))
+
+    # geometry = [Point(xy) for xy in zip(info.lng, info.lat)]
+    # crs = {'init': 'epsg:4326'}
+    # info_geo = gpd.GeoDataFrame(info, crs=crs, geometry=geometry)
+    # del info_geo['lat']
+    # del info_geo['lng']
+    # info_geo.to_file('%s/%s_%s.shp'%(location_name,location_name,category), driver='ESRI Shapefile')
     print('下载完成')
 else:
     print('搜索无记录')
