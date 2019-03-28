@@ -14,7 +14,11 @@ coord_type = input('输入坐标类型: ')
 location = input('输入中心点坐标，先纬度后经度用英文逗号分隔不要加空格: ')
 location_name = input('输入中心点名字，例如复华小区: ')
 radius = input('输入搜索半径(只写数字，单位为米): ')
-os.mkdir('%s'%location_name)
+try:
+    os.stat('%s'%location_name)
+except:
+    os.mkdir('%s'%location_name)
+
 j = 0
 info = pd.DataFrame()
 lat = []
