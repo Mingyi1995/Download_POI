@@ -31,7 +31,7 @@ for k in range(len(text['results'])):
     lng.append(text['results'][k]['location']['lng'])
 while len(text['results']) > 19:
     j += 1
-    url = 'http://api.map.baidu.com/place/v2/search?query='+i+'&page_size=20&page_num='+str(j)+'&location=31.212368,121.60081&radius=1000&output=json&ak='+ak
+    url = 'http://api.map.baidu.com/place/v2/search?query='+category+'&page_size=20&page_num='+str(j)+'&coord_type=coord_type'+coord_type+'&location='+location+'&radius='+radius+'&output=json&ak=' + ak
     data = requests.get(url)
     text = json.loads(data.text)
     for k in range(len(text['results'])):
